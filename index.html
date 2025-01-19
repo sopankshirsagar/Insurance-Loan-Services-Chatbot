@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Chatbot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+        .chat-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .chat-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #4a5568;
+            background-color: #4c51bf;
+            color: white;
+        }
+        .chat-box {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #1a202c;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 75%;
+        }
+        .user-message {
+            background: #4c51bf;
+            color: #fff;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            background: #4a5568;
+            color: #e2e8f0;
+            align-self: flex-start;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input textarea {
+            flex: 1;
+            resize: none;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            background: #1a202c;
+            color: #ffffff;
+        }
+        .chat-input textarea:focus {
+            outline: none;
+            border-color: #4c51bf;
+            box-shadow: 0 0 5px rgba(76, 81, 191, 0.5);
+        }
+        .btn-send {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #4c51bf;
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn-send:hover {
+            background-color: #3730a3;
+            cursor: pointer;
+        }
+        .description {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .description h2 {
+            font-size: 1.8rem;
+            color: #f7fafc;
+            margin-bottom: 15px;
+        }
+        .description p {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+        .description ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .description ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+        .description h3 {
+            font-size: 1.4rem;
+            color: #f7fafc;
+            margin-top: 20px;
+        }
+        .description ul li span {
+            color: #4c51bf;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Insurance Chatbot</div>
+        <div class="chat-box" id="chatBox">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <form id="queryForm" class="chat-input">
+            <textarea id="queryInput" rows="2" placeholder="Type your question here..."></textarea>
+            <button type="submit" class="btn-send">Send</button>
+        </form>
+    </div>
+
+    <div class="description">
+        <h2>What Can This Chatbot Help You With?</h2>
+        <p>Our Insurance Chatbot is here to assist you with all your queries related to insurance and loan schemes. Whether you’re looking for the best loan or insurance plan, our chatbot provides detailed recommendations, eligibility checks, and much more. Explore the services below:</p>
+        
+        <ul>
+            <li><strong>Service Name:</strong> Home Loans, Personal Loans, Car Loans, Education Loans, Term Insurance, Health Insurance</li>
+            <li><strong>Eligibility Criteria:</strong> Check conditions such as age, income, and other requirements</li>
+            <li><strong>Interest Rates/Premiums:</strong> Information on interest rates and premiums</li>
+            <li><strong>Application Process:</strong> Step-by-step guidance on applying for insurance or loans</li>
+            <li><strong>Contact Information:</strong> Phone numbers and emails for customer support</li>
+            <li><strong>Policy Terms:</strong> Repayment terms, coverage details, and conditions</li>
+            <li><strong>Service Locations:</strong> Cities or areas where services are available</li>
+            <li><strong>Loan/Insurance Types:</strong> Secured and unsecured loans, life or health insurance</li>
+            <li><strong>Approval Time:</strong> Expected time frame for approval</li>
+            <li><strong>Suggestions:</strong> Personalized recommendations based on your needs and circumstances</li>
+        </ul>
+
+        <h3>Example Recommendations:</h3>
+        <p><strong>Home Loan:</strong><br>
+            <strong>Eligibility:</strong> Age 25-60, Income ₹50,000+. <br>
+            <strong>Interest Rate:</strong> 8% p.a. <br>
+            <strong>Process:</strong> Apply online, submit ID proof, income proof, and property documents. <br>
+            <strong>Contact:</strong> 123-4567890, support@company.com. <br>
+            <strong>Terms:</strong> Payback in 15 years, EMI starts after 2 months. <br>
+            <strong>Locations:</strong> Delhi, Mumbai, Bangalore. <br>
+            <strong>Suggested For:</strong> Homebuyers, families.
+        </p>
+        <p><strong>Personal Loan:</strong><br>
+            <strong>Eligibility:</strong> Age 23-55, Income ₹40,000+. <br>
+            <strong>Interest Rate:</strong> 10% p.a. <br>
+            <strong>Process:</strong> Apply online, submit ID proof and bank statements. <br>
+            <strong>Contact:</strong> 123-4567891, help@company.com. <br>
+            <strong>Terms:</strong> Payback in 5 years, EMI starts after 1 month. <br>
+            <strong>Locations:</strong> Delhi, Mumbai. <br>
+            <strong>Suggested For:</strong> Employees, entrepreneurs.
+        </p>
+        <p><strong>Term Insurance:</strong><br>
+            <strong>Eligibility:</strong> Age 18-65, No pre-existing conditions. <br>
+            <strong>Premium:</strong> ₹12,000-₹30,000 p.a. <br>
+            <strong>Process:</strong> Apply online, undergo health screening. <br>
+            <strong>Contact:</strong> 123-4567894, care@company.com. <br>
+            <strong>Terms:</strong> Payback in 10 years, sum assured after policy period. <br>
+            <strong>Suggested For:</strong> Family heads, retirees.
+        </p>
+    </div>
+
+    <script>
+        const queryForm = document.getElementById('queryForm');
+        const queryInput = document.getElementById('queryInput');
+        const chatBox = document.getElementById('chatBox');
+
+        function appendMessage(content, isUser = false) {
+            const message = document.createElement('div');
+            message.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            message.innerHTML = content.replace(/\n/g, "<br>").replace(/(\d+)/g, "<strong>$1</strong>"); // Format numbers as bold and add line breaks
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
+        }
+
+        queryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userQuery = queryInput.value.trim();
+            if (!userQuery) {
+                return;
+            }
+
+            // Add user query to the chat
+            appendMessage(userQuery, true);
+            queryInput.value = ''; // Clear the input field
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: userQuery }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    appendMessage(data.response);
+                } else {
+                    appendMessage(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                appendMessage(`Error: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
