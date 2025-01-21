@@ -5,7 +5,7 @@ This chatbot is designed to assist users with inquiries related to insurance and
 
 ## **Preview of the Chatbot Frontend**  
 
-![Chatbot Frontend Screenshot](images/Screenshot (20).png)  
+![Chatbot Frontend Screenshot](https://github.com/sopankshirsagar/Insurance-Loan-Services-Chatbot/blob/main/Screenshot%20(20).png)  
 
 *(Sample screenshot of the chatbot frontend interface)*  
 
